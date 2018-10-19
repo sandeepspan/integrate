@@ -6,8 +6,10 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: instance
+  - name: CentOS
     image: centos:7
+    image_version: latest
+    privileged: true
 provisioner:
   name: ansible
   lint:
@@ -15,6 +17,7 @@ provisioner:
 scenario:
   name: default
 verifier:
-  name: testinfra
+  name: goss
+  enabled: true
   lint:
-    name: flake8
+    name: yamllint
