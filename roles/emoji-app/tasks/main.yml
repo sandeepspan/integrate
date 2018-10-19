@@ -1,39 +1,46 @@
 ---
 # tasks file for emoji-app
-- name: installing_git
-  yum:
-    name: git
-    state: latest
-- name: downloading_repo_to_"{{ emoji_repo_dir }}"
-  git:
-    repo: "{{ emoji_repo_url }}"
-    dest: "{{ emoji_repo_dir }}"
-    version: master
-- name: installing_epel-release
-  yum:
-    name: epel-release
-    state: latest
-- name: installing_packages_for_nodejs
-  yum:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - nodejs
+#- name: installing_git
+#  yum:
+#    name: git
+#    state: latest
+#- name: downloading_repo_to_"{{ emoji_repo_dir }}"
+#  git:
+#    repo: "{{ emoji_repo_url }}"
+#    dest: "{{ emoji_repo_dir }}"
+#    version: master
+#    force: true
+#- name: installing_epel-release
+#  yum:
+#    name: epel-release
+#    state: latest
+#- name: installing_packages_for_nodejs
+#  yum:
+#    name: "{{ item }}"
+#    state: latest
+#  with_items:
+#    - nodejs
 - name: installing_dependencies_for_nodejs
   npm: name={{ item }} state=present global=yes
   with_items:
     - gh-pages
     - prettier
+    - ajv
+    - ajv-keywords
     - react-scripts
     - clipboard
     - github-fork-ribbon-css
     - react
     - react-dom
-- name: try_starting_nodejs_application
-  command: cd "/tmp/{{ emoji_repo_dir }}"; npm start
-  code_check: false
-  register: q
-- name: DEBUG
-  debug:
-    var: q 
+    - react-clipboard
+    - clipboard
+#- name: try_starting_nodejs_application
+#  command: npm start
+#  args:
+#    chdir: "{{ emoji_repo_dir }}"
+#  code_check: false
+#  register: q
+#- name: DEBUG
+#  debug:
+#    var: q
 ...
