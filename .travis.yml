@@ -1,0 +1,25 @@
+---
+language: python
+services: docker
+
+env:
+  global:
+    - ROLE_NAME: "emoji-app"
+  matrix:
+    - MOLECULE_DISTRO: centos7
+      MOLECULE_DOCKER_COMMAND: /usr/lib/systemd/systemd
+    - MOLECULE_DISTRO: centos6
+      MOLECULE_DOCKER_COMMAND: /usr/lib/systemd/systemd
+
+install:
+  # installing dependencies for molecule
+  - pip install molecule docker
+
+before_script:
+  # getting into proper role directory
+  - cd roles/$ROLE_NAME
+
+script:
+  # Runing tests.
+  - molecule test
+...
