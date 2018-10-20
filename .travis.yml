@@ -21,5 +21,7 @@ before_script:
 
 script:
   # Runing tests.
-  - molecule test
+  - molecule --debug lint
+  - molecule --debug converge
+  - molecule --debug destroy
 ...
