@@ -13,4 +13,4 @@ sudo systemctl start docker
 sudo systemctl enable docker
 sudo docker version
 sudo docker run hello-world
-#sudo pip install docker-py
+sudo pip install docker

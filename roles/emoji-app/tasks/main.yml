@@ -21,20 +21,12 @@
   with_items:
     - nodejs
 - name: installing_dependencies_for_nodejs
-  npm: name={{ item }} state=present global=yes
+  npm: 
+    name: "{{ item }}"
+    state: present
+    global: true
   with_items:
-    - forever
-    - gh-pages
-    - prettier
-    - ajv
-    - ajv-keywords
-    - react-scripts
-    - clipboard
-    - github-fork-ribbon-css
-    - react
-    - react-dom
-    - react-clipboard
-    - clipboard
+    - "{{ npm-dependencies }}"
 - name: check_list_of_ode.js_apps_running
   command: forever list
   register: forever_list

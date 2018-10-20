@@ -2,4 +2,17 @@
 # defaults file for emoji-app
 emoji_repo_dir: "/tmp/emoji_repo_dir"
 emoji_repo_url: "https://github.com/ahfarmer/emoji-search.git"
+npm-dependencies:
+  - forever
+  - gh-pages
+  - prettier
+  - ajv
+  - ajv-keywords
+  - react-scripts
+  - clipboard
+  - github-fork-ribbon-css
+  - react
+  - react-dom
+  - react-clipboard
+  - clipboard
 ...
