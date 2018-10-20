@@ -21,12 +21,12 @@
   with_items:
     - nodejs
 - name: installing_dependencies_for_nodejs
-  npm: 
+  npm:
     name: "{{ item }}"
     state: present
     global: true
   with_items:
-    - "{{ npm-dependencies }}"
+    - "{{ npm_dependencies }}"
 - name: check_list_of_ode.js_apps_running
   command: forever list
   register: forever_list

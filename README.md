@@ -13,9 +13,9 @@ To use this repository ahead one should be aware of below terminologies/Technolo
   - NodeJs [Click Here](https://nodejs.org/en/docs/guides/getting-started-guide/)
   - Docker [Click Here](https://docs.docker.com/get-started/)
 
-# Installation 
+# Installation
 ###   Getting your CI setup ready
-To start using GitHb, make sure 
+To start using GitHb, make sure
  - You have registered for an account using [Link](https://github.com/join)
  - You create your project using reference  [Link](https://guides.github.com/activities/hello-world/)
 
@@ -45,8 +45,29 @@ Modify VirtualBox Default VM path to `C:\virtualbox-images`
 
 set VAGRANT_HOME to same path as `C:\virtualbox-images`
 
+Follow below steps on Windows Command Prompt or Unix Prompt
 ```
-$ 
+$ pwd
+/drives/d/virtualbox-images
+$ vagrant init centos/7
+$ vagrant up --provider virtualbox
+```
+Follow below steps on Mobax Term Console or Unix Prompt
+```
+$ ssh -p 2222 vagrant@127.0.0.1 -i   /drives/d/virtualbox-images/.vagrant/machines/default/virtualbox/private_key
+[vagrant@localhost ~]$ sudo yum install git
+[vagrant@localhost ~]$ git clone https://github.com/sandeepspan/integrate.git
+[vagrant@localhost ~]$ cd integrate
+[vagrant@localhost integrate]$ bash -x bootstrap.sh
+```
+All installation should be completed without errors if you have reached this step. Now its time to use molecule using docker.
+```
+[vagrant@localhost integrate]$ cd roles/emoji-app
+[vagrant@localhost emoji-app]$ sudo molecule test
+[vagrant@localhost emoji-app]$ sudo molecule lint
+[vagrant@localhost emoji-app]$ sudo molecule converge
+[vagrant@localhost emoji-app]$ sudo molecule destroy
+
 ```
 
 # License
