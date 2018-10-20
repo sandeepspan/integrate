@@ -3,7 +3,7 @@
 - name: installing_git
   yum:
     name: git
-    state: latest
+    state: present
 - name: downloading_repo_to_"{{ emoji_repo_dir }}"
   git:
     repo: "{{ emoji_repo_url }}"
@@ -13,16 +13,17 @@
 - name: installing_epel-release
   yum:
     name: epel-release
-    state: latest
+    state: present
 - name: installing_packages_for_nodejs
   yum:
     name: "{{ item }}"
-    state: latest
+    state: present
   with_items:
     - nodejs
 - name: installing_dependencies_for_nodejs
   npm: name={{ item }} state=present global=yes
   with_items:
+    - forever
     - gh-pages
     - prettier
     - ajv
@@ -34,4 +35,16 @@
     - react-dom
     - react-clipboard
     - clipboard
+- name: check_list_of_ode.js_apps_running
+  command: forever list
+  register: forever_list
+  check_mode: false
+  changed_when: false
+- name: start_node.js_app
+  command: forever start "{{ emoji_repo_dir }}"
+  check_mode: false
+  when: "forever_list.stdout.find('/path/to/app.js') == -1"
+  register: q
+- name: DEBUG
+  debug: var=q
 ...
