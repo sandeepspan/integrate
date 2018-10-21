@@ -70,6 +70,46 @@ All installation should be completed without errors if you have reached this ste
 
 ```
 
+# Brief explaination
+below points can be considered for overall thought process followed for understanding mindset of this case study.
+- ansible used here to take advantage on configuration management, application deployment, task automation front.
+- vagrant used here to take advantage of opensource cost effective virtualization environment creation for developer
+- molecule used here to take advantage of docker based testing of your code base through ansble roles
+- goss or flake used here for carrying out infra unit test executions, but yet to get added with proper test cases. 
+- developer can utilize molecule effectively on his vagrant box as it has capability to perform execution of deployment and unit testing of deployment using simple yaml based programing similar to one used in ansible.
+- on vagrant box developer can simple test deployment using below steps of molecule once deployment and unit test logic is in place in required ansible playbook files
+- To perform synatx validations for your code 
+```
+[vagrant@localhost emoji-app]$ sudo molecule lint
+```
+- To perform docker creation if not already and then deploying on docker 
+```
+[vagrant@localhost emoji-app]$ sudo molecule converge
+```
+- To perform unit test execution on created docker using flake or goss framework 
+```
+[vagrant@localhost emoji-app]$ sudo molecule verify
+```
+- To perform docker destroy once all development is completed on your vagrant box 
+```
+[vagrant@localhost emoji-app]$ sudo molecule destroy
+```
+- To per end to end exection using molecule, i.e. performing synatx validations --> getting docker created --> deploying on docker --> verifying docker installation --> destroying docker 
+```
+[vagrant@localhost emoji-app]$ sudo molecule test
+```
+- Once molecule execution is completed without errors or warnings changes can be committed to REPO to get CI sequence evaluated to get your build GREEN, This saved some efforts of getting into failuer of build due to small small errors which can be detected using molecule based command execution. 
+
+# To Do
+If time permits i would like to explore below points to get this case study taken ahead.
+- add more detailed deployment steps for Nodejs based application, as i am still learning nodejs usage.
+- add more tests to validate deployed application, may be goss/flake or other framework usage for this
+- explore other options of free tier of AWS instance usage using available ansible orchestration options
+- explore vault like feture of ansible for secrete values storage such as application username/password, AWS access Key/Secrete Key etc in the CI CD flow, may be hashicorp valut or consul
+- add monitors using prometheus to get CI based stattistics captured in to centralised prometheus server for future analysis, as i am still learning prometheus usage for metric collection.
+- add notification mechanism for CICD success or failuers, may be slack or email notifications
+  
+
 # License
 ----
 MIT
